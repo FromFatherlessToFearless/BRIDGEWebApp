@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BRIDGEWebApp", "BRIDGEWebApp.csproj", "{7FF8481D-0BE0-4642-96D7-9A760DEE8679}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BRIDGEWebApp", "BRIDGEWebApp.csproj", "{7FF8481D-0BE0-4642-96D7-9A760DEE8679}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
