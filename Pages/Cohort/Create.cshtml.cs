@@ -20,7 +20,8 @@ namespace BRIDGEWebApp.Pages.Cohort
 
         public IActionResult OnGet()
         {
-            
+            // To default it to today or later
+            Cohort.StartDate = DateTime.Now;
             return Page();
         }
 
