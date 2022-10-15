@@ -23,7 +23,7 @@ namespace BRIDGEWebApp.Data.Models
 
         public DateTime UpdatedOn { get; set; }
 
-
+        public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
 
         [ForeignKey("CreatedBy")]

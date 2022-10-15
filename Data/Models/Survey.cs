@@ -12,6 +12,8 @@ namespace BRIDGEWebApp.Data.Models
         [StringLength(500)]
         public string Name { get; set; }
 
+        public bool IsActive { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }

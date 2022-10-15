@@ -15,16 +15,15 @@ namespace BRIDGEWebApp.Data.Models
         [StringLength(100)]
         public string LastName { get; set; }
 
-        
         public string PINHash { get; set; }
 
         public int CohortId { get; set; }
-       
+
+        public bool IsActive { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }
-
         
         public string CreatedBy { get; set; }
 
