@@ -4,15 +4,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
+using BRIDGEWebApp.Data.ViewModels;
 
 namespace BRIDGEWebApp.Pages
 {
-    public class ParticipantLoginModel : PageModel
+    public class ParticipantRegisterModel : PageModel
     {
         [BindProperty]
-        public Participant? Participant { get; set; }
+        public ParticipantRegisterViewModel Participant { get; set; }
 
-        public void OnGet(int cohortId, int participantId)
+        public void OnGet(int cohortId)
         {
         }
 

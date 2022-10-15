@@ -16,21 +16,14 @@
 
 
 
-<div>
-   <dl>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cohort.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cohort.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cohort.IsRegistrationOpen)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cohort.IsRegistrationOpen)
-        </dd>
-        
-    </dl>
+<div class="row">
+    <div class="col-lg">
+        <form asp-page-handler="toggleregistration" method="post">
+            <button class="btn btn-primary">@if (Model.Cohort.IsRegistrationOpen) {
+                    <span>Close Registration</span> } else { <span>Open Registration</span> }
+            </button>
+        </form>
+    </div>
+    
 </div>
 
