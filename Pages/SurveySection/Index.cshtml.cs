@@ -36,6 +36,8 @@ namespace BRIDGEWebApp.Pages.SurveySection
                     Description = s.Description,
                     CreatedOn = s.CreatedOn,
                     UpdatedOn = s.UpdatedOn,
+                    CreatedBy = s.CreatedBy,
+                    UpdatedBy = s.UpdatedBy,
                     Order = s.Order 
                 }).OrderBy(s => s.Order).ToListAsync();
             }
