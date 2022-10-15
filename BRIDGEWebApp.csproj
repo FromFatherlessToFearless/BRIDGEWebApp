@@ -22,9 +22,9 @@
   <ItemGroup>
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Swashbuckle.AspNetCore" />
-    <None Remove="Pages\Attendance\" />
+    <None Remove="Pages\Cohort\Attendance\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Attendance\" />
+    <Folder Include="Pages\Cohort\Attendance\" />
   </ItemGroup>
 </Project>
