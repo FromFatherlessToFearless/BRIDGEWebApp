@@ -28,5 +28,9 @@ namespace BRIDGEWebApp.Data
         public DbSet<AnswerOption> AnswerOptions { get; set; }
 
         public DbSet<ParticipantSurvey> ParticipantSurveys { get; set; }
+
+        public DbSet<Attendance> Attendances { get; set; }
+
+        public DbSet<ParticipantAttendance> ParticipantAttendances { get; set; }
     }
 }
