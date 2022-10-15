@@ -4,6 +4,7 @@ using BRIDGEWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BRIDGEWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221015152317_AddParticipantAttendance")]
+    partial class AddParticipantAttendance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,56 +72,6 @@ namespace BRIDGEWebApp.Data.Migrations
                     b.HasIndex("QuestionOptionId");
 
                     b.ToTable("AnswerOptions");
-                });
-
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.Attendance", b =>
-                {
-                    b.Property<int>("AttendanceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendanceId"), 1L, 1);
-
-                    b.Property<DateTime>("AttendanceDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CohortId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("InAttendance")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("AttendanceId");
-
-                    b.HasIndex("CohortId");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("UpdatedBy");
-
-                    b.ToTable("Attendances");
                 });
 
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.Cohort", b =>
@@ -219,29 +171,6 @@ namespace BRIDGEWebApp.Data.Migrations
                     b.HasIndex("CohortId");
 
                     b.ToTable("Participants");
-                });
-
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.ParticipantAttendance", b =>
-                {
-                    b.Property<int>("ParticipantAttendanceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipantAttendanceId"), 1L, 1);
-
-                    b.Property<int>("AttendanceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParticipantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ParticipantAttendanceId");
-
-                    b.HasIndex("AttendanceId");
-
-                    b.HasIndex("ParticipantId");
-
-                    b.ToTable("ParticipantAttendances");
                 });
 
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.ParticipantSurvey", b =>
@@ -703,33 +632,6 @@ namespace BRIDGEWebApp.Data.Migrations
                     b.Navigation("QuestionOption");
                 });
 
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.Attendance", b =>
-                {
-                    b.HasOne("BRIDGEWebApp.Data.Models.Cohort", "Cohort")
-                        .WithMany()
-                        .HasForeignKey("CohortId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedByIdentityUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedByIdentityUser")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cohort");
-
-                    b.Navigation("CreatedByIdentityUser");
-
-                    b.Navigation("UpdatedByIdentityUser");
-                });
-
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.Cohort", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedByIdentityUser")
@@ -758,25 +660,6 @@ namespace BRIDGEWebApp.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Cohort");
-                });
-
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.ParticipantAttendance", b =>
-                {
-                    b.HasOne("BRIDGEWebApp.Data.Models.Attendance", "Attendance")
-                        .WithMany()
-                        .HasForeignKey("AttendanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BRIDGEWebApp.Data.Models.Participant", "Participant")
-                        .WithMany()
-                        .HasForeignKey("ParticipantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Attendance");
-
-                    b.Navigation("Participant");
                 });
 
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.ParticipantSurvey", b =>
