@@ -17,6 +17,8 @@ namespace BRIDGEWebApp.Data.Models
 
         public int Order { get; set; }
 
+        public bool IsActive { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }

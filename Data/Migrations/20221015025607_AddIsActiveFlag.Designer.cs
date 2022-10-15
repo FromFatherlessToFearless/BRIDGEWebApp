@@ -4,6 +4,7 @@ using BRIDGEWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BRIDGEWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221015025607_AddIsActiveFlag")]
+    partial class AddIsActiveFlag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,56 +23,6 @@ namespace BRIDGEWebApp.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.Answer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ParticipantSurveyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParticipantSurveyId");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Answers");
-                });
-
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.AnswerOption", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AnswerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuestionOptionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnswerId");
-
-                    b.HasIndex("QuestionOptionId");
-
-                    b.ToTable("AnswerOptions");
-                });
 
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.Cohort", b =>
                 {
@@ -133,12 +85,12 @@ namespace BRIDGEWebApp.Data.Migrations
                     b.Property<int>("CohortId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -157,9 +109,9 @@ namespace BRIDGEWebApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
@@ -168,30 +120,11 @@ namespace BRIDGEWebApp.Data.Migrations
 
                     b.HasIndex("CohortId");
 
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("UpdatedBy");
+
                     b.ToTable("Participants");
-                });
-
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.ParticipantSurvey", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ParticipantId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SurveyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParticipantId");
-
-                    b.HasIndex("SurveyId");
-
-                    b.ToTable("ParticipantSurveys");
                 });
 
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.Question", b =>
@@ -592,44 +525,6 @@ namespace BRIDGEWebApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.Answer", b =>
-                {
-                    b.HasOne("BRIDGEWebApp.Data.Models.ParticipantSurvey", "ParticipantSurvey")
-                        .WithMany()
-                        .HasForeignKey("ParticipantSurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BRIDGEWebApp.Data.Models.Question", "Question")
-                        .WithMany()
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ParticipantSurvey");
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.AnswerOption", b =>
-                {
-                    b.HasOne("BRIDGEWebApp.Data.Models.Answer", "Answer")
-                        .WithMany()
-                        .HasForeignKey("AnswerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BRIDGEWebApp.Data.Models.QuestionOption", "QuestionOption")
-                        .WithMany()
-                        .HasForeignKey("QuestionOptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Answer");
-
-                    b.Navigation("QuestionOption");
-                });
-
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.Cohort", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedByIdentityUser")
@@ -657,26 +552,23 @@ namespace BRIDGEWebApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedByIdentityUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedByIdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cohort");
-                });
 
-            modelBuilder.Entity("BRIDGEWebApp.Data.Models.ParticipantSurvey", b =>
-                {
-                    b.HasOne("BRIDGEWebApp.Data.Models.Participant", "Participant")
-                        .WithMany()
-                        .HasForeignKey("ParticipantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("CreatedByIdentityUser");
 
-                    b.HasOne("BRIDGEWebApp.Data.Models.Survey", "Survey")
-                        .WithMany()
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Participant");
-
-                    b.Navigation("Survey");
+                    b.Navigation("UpdatedByIdentityUser");
                 });
 
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.Question", b =>
