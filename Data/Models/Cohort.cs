@@ -4,28 +4,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BRIDGEWebApp.Data.Models
 {
-    public class Participant
+    public class Cohort
     {
         [Key]
         public int Id { get; set; }
 
         [StringLength(100)]
-        public string FirstName { get; set; }
+        public string Name { get; set; }
 
-        [StringLength(100)]
-        public string LastName { get; set; }
+        [StringLength(1000)]
+        public string Description { get; set; }
 
-        
-        public string PINHash { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public int CohortId { get; set; }
-       
+        public bool IsRegistrationOpen { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }
 
-        
+
         public string CreatedBy { get; set; }
 
         [ForeignKey("CreatedBy")]
@@ -36,6 +34,6 @@ namespace BRIDGEWebApp.Data.Models
         [ForeignKey("UpdatedBy")]
         public IdentityUser UpdatedByIdentityUser { get; set; }
 
-        public Cohort Cohort { get; set; }
+        public List<Participant> Participants { get; set; }
     }
 }

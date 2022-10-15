@@ -40,7 +40,6 @@ namespace BRIDGEWebApp.Pages
                 var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, Participant.FirstName),
-                        new Claim("PINCode", Participant.PIN),
                     };
 
                 var claimsIdentity = new ClaimsIdentity(
