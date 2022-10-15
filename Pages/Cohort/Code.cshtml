@@ -1,4 +1,4 @@
-﻿@page "~/{cohortId}/code"
+﻿@page "~/cohort/{cohortId}/code"
 @model BRIDGEWebApp.Pages.Cohort.CodeModel
 @{
 }
@@ -12,6 +12,7 @@
 
 @if (ViewBag.QRCodeImage != null)
     {
-        <img src="@ViewBag.QRCodeImage" alt="" style="height:150px;width:150px"/>
+        <img src="@ViewBag.QRCodeImage" alt="" style="height:350px;width:350px"/>
+        <a href="@ViewBag.URL">@ViewBag.URL</a>
     }
 

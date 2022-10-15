@@ -85,7 +85,7 @@ namespace BRIDGEWebApp.Pages.Cohort
 
             if (Cohort.IsRegistrationOpen)
             {
-                return RedirectToPage("./Code", new { cohortId = Cohort.Id });
+                return RedirectToPage("Code", new { cohortId = Cohort.Id });
             }
 
             return Page();
