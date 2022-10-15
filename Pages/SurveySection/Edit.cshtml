@@ -1,0 +1,55 @@
+﻿@page
+@model BRIDGEWebApp.Pages.SurveySection.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>SurveySection</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SurveySection.Id" />
+            <div class="form-group">
+                <label asp-for="SurveySection.Order" class="control-label"></label>
+                <input asp-for="SurveySection.Order" class="form-control" />
+                <span asp-validation-for="SurveySection.Order" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SurveySection.Name" class="control-label"></label>
+                <input asp-for="SurveySection.Name" class="form-control" />
+                <span asp-validation-for="SurveySection.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SurveySection.Description" class="control-label"></label>
+                <input asp-for="SurveySection.Description" class="form-control" />
+                <span asp-validation-for="SurveySection.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SurveySection.IsActive" /> @Html.DisplayNameFor(model => model.SurveySection.IsActive)
+                </label>
+            </div>
+            @Html.HiddenFor(model => model.SurveySection.CreatedBy)
+            @Html.HiddenFor(model => model.SurveySection.CreatedOn)
+            @Html.HiddenFor(model => model.SurveySection.UpdatedBy)
+            @Html.HiddenFor(model => model.SurveySection.UpdatedOn)
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
