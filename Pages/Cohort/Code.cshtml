@@ -1,0 +1,17 @@
+﻿@page "~/{cohortId}/code"
+@model BRIDGEWebApp.Pages.Cohort.CodeModel
+@{
+}
+
+<h1>Welcome to the B.R.I.D.G.E Program</h1>
+<div>|
+    <a asp-page="./Index">Back</a>
+</div>
+<hr />
+<h2>@Model.Cohort?.Name</h2>
+
+@if (ViewBag.QRCodeImage != null)
+    {
+        <img src="@ViewBag.QRCodeImage" alt="" style="height:150px;width:150px"/>
+    }
+
