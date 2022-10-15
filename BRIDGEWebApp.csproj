@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-BRIDGEWebApp-12EDAFDF-32A2-40E7-8488-EBCE10B0D7FB</UserSecretsId>
     <LangVersion>preview</LangVersion>
