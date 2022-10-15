@@ -36,8 +36,6 @@ namespace BRIDGEWebApp.Pages.Cohort
                 return NotFound();
             }
             Cohort = cohort;
-           ViewData["CreatedBy"] = new SelectList(_context.Users, "Id", "Id");
-           ViewData["UpdatedBy"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -45,6 +43,7 @@ namespace BRIDGEWebApp.Pages.Cohort
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            
             if (!ModelState.IsValid)
             {
                 return Page();

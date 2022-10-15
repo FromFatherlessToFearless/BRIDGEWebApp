@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BRIDGEWebApp.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,26 +25,30 @@ namespace BRIDGEWebApp.Pages.Cohort
         }
 
         [BindProperty]
-        public Data.Models.Cohort Cohort { get; set; }
+        public CohortViewModel Cohort { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Cohort.UpdatedBy = userId;
-            Cohort.CreatedBy = userId;
-            Cohort.UpdatedOn = DateTime.Now;
-            Cohort.CreatedOn = DateTime.Now;
-            ModelState.Clear();
-            TryValidateModel(Cohort);
+            Data.Models.Cohort cohort = new Data.Models.Cohort();
+            cohort.UpdatedBy = userId;
+            cohort.CreatedBy = userId;
+            cohort.UpdatedOn = DateTime.Now;
+            cohort.CreatedOn = DateTime.Now;
+            cohort.Description = Cohort.Description;
+            cohort.IsActive = true;
+            cohort.IsRegistrationOpen = false;
+            cohort.Name = Cohort.Name;
+            cohort.StartDate = Cohort.StartDate;
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Cohorts.Add(Cohort);
+            _context.Cohorts.Add(cohort);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
+using BRIDGEWebApp.Data.ViewModels;
 
 namespace BRIDGEWebApp.Pages.Cohort
 {
@@ -19,15 +20,26 @@ namespace BRIDGEWebApp.Pages.Cohort
             _context = context;
         }
 
-        public IList<Data.Models.Cohort> Cohort { get;set; } = default!;
+        public IList<CohortViewModel> Cohorts { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Cohorts != null)
             {
-                Cohort = await _context.Cohorts
+                Cohorts = await _context.Cohorts
                 .Include(c => c.CreatedByIdentityUser)
-                .Include(c => c.UpdatedByIdentityUser).ToListAsync();
+                .Include(c => c.UpdatedByIdentityUser)
+                .Select(c => new CohortViewModel
+                {
+                    Id = c.Id,
+                    IsActive = c.IsActive,
+                    Name = c.Name,
+                    Description = c.Description,
+                    IsRegistrationOpen = c.IsRegistrationOpen,
+                    CreatedOn = c.CreatedOn,
+                    StartDate = c.StartDate,
+                    UpdatedOn = c.UpdatedOn,
+                }).ToListAsync();
             }
         }
     }
