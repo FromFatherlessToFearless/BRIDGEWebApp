@@ -1,4 +1,4 @@
-@page
+@page "/Cohort/{cohortId}/attendance/create"
 @model BRIDGEWebApp.Pages.Attendance.CreateModel
 
 @{
@@ -22,11 +22,6 @@
                 <label asp-for="Attendance.AttendanceDate" class="control-label"></label>
                 <input asp-for="Attendance.AttendanceDate" class="form-control" />
                 <span asp-validation-for="Attendance.AttendanceDate" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Attendance.InAttendance" /> @Html.DisplayNameFor(model => model.Attendance.InAttendance)
-                </label>
             </div>
             <div class="form-group">
                 <label asp-for="Attendance.CohortId" class="control-label"></label>

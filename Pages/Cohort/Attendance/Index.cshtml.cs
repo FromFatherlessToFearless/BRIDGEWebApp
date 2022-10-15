@@ -21,14 +21,15 @@ namespace BRIDGEWebApp.Pages.Attendance
 
         public IList<BRIDGEWebApp.Data.Models.Attendance> Attendance { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int cohortId)
         {
+
             if (_context.Attendances != null)
             {
                 Attendance = await _context.Attendances
                 .Include(a => a.Cohort)
                 .Include(a => a.CreatedByIdentityUser)
-                .Include(a => a.UpdatedByIdentityUser).ToListAsync();
+                .Include(a => a.UpdatedByIdentityUser).Where(a => a.CohortId == cohortId).ToListAsync();
             }
         }
     }
