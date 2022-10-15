@@ -14,34 +14,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Cohort[0].Name)
+                @Html.DisplayNameFor(model => model.Cohorts[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cohort[0].Description)
+                @Html.DisplayNameFor(model => model.Cohorts[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cohort[0].StartDate)
+                @Html.DisplayNameFor(model => model.Cohorts[0].StartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cohort[0].IsRegistrationOpen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cohort[0].CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cohort[0].UpdatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cohort[0].CreatedByIdentityUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cohort[0].UpdatedByIdentityUser)
+                @Html.DisplayNameFor(model => model.Cohorts[0].IsRegistrationOpen)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Cohort) {
+@foreach (var item in Model.Cohorts) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -53,9 +41,17 @@
                 @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
+                    @if (item.IsRegistrationOpen)
+                    {
+                        <p>Yes</p>
+                    } else
+                    {
+                        <p>No</p>
+                    }
+                </td>
+            <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.Id">View</a>
             </td>
         </tr>
 }

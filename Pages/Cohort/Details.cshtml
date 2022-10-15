@@ -2,27 +2,22 @@
 @model BRIDGEWebApp.Pages.Cohort.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Cohort - " + Model.Cohort.Id;
 }
 
-<h1>Details</h1>
+<h1>Cohort @Model.Cohort.Id</h1>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Cohort?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
+<hr />
+<h2>@Model.Cohort?.Name</h2>
+<p>@Model.Cohort?.Description</p>
+
+
 
 <div>
-    <h4>Cohort</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cohort.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cohort.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cohort.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cohort.Description)
-        </dd>
+   <dl>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Cohort.StartDate)
         </dt>
@@ -35,33 +30,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Cohort.IsRegistrationOpen)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cohort.CreatedOn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cohort.CreatedOn)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cohort.UpdatedOn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cohort.UpdatedOn)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cohort.CreatedByIdentityUser)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cohort.CreatedByIdentityUser.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cohort.UpdatedByIdentityUser)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cohort.UpdatedByIdentityUser.Id)
-        </dd>
+        
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Cohort?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+
