@@ -34,7 +34,7 @@ namespace BRIDGEWebApp.Pages.Cohort
             {
                 Cohort = cohort;
             }
-            var url = Url.PageLink("./Participants/Register", values:new { cohortId = cohortId});
+            var url = Url.PageLink("./Participants/Landing", values:new { cohortId = cohortId});
             // Generate the QR Code
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);

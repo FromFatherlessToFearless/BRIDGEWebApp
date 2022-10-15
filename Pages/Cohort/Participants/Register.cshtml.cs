@@ -5,16 +5,44 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using BRIDGEWebApp.Data.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace BRIDGEWebApp.Pages
 {
     public class ParticipantRegisterModel : PageModel
     {
+        private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
+
+        public ParticipantRegisterModel(BRIDGEWebApp.Data.ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         [BindProperty]
         public ParticipantRegisterViewModel Participant { get; set; }
 
-        public void OnGet(int cohortId)
+        public Data.Models.Cohort Cohort { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int cohortId)
         {
+
+            if (cohortId == null || _context.Cohorts == null)
+            {
+                return NotFound();
+            }
+
+            var cohort = await _context.Cohorts.FirstOrDefaultAsync(m => m.Id == cohortId);
+            if (cohort == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                Cohort = cohort;
+            }
+
+            // TODO: Redirect them if registration is closed
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

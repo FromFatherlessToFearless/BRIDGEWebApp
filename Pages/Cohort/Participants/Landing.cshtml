@@ -1,4 +1,11 @@
-﻿@page
+﻿@page "/cohort/{cohortId}/landing"
 @model BRIDGEWebApp.Pages.Cohort.Participants.LandingModel
 @{
+    ViewData["Title"] = "BRIDGE - Register Participant";
 }
+
+
+<h1>Welcome to the B.R.I.D.G.E Program</h1>
+
+<h2>Cohort @Model.Cohort.Id: @Model.Cohort.Name</h2>
+<hr />

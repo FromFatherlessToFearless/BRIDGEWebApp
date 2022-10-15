@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BRIDGEWebApp.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace BRIDGEWebApp.Data.ViewModels
 {
@@ -23,6 +24,5 @@ namespace BRIDGEWebApp.Data.ViewModels
 
         [Phone]
         public string? PhoneNumber { get; set; }
-
     }
 }
