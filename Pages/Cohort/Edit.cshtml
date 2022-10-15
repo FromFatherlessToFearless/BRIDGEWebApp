@@ -1,0 +1,70 @@
+﻿@page
+@model BRIDGEWebApp.Pages.Cohort.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Cohort</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Cohort.Id" />
+            <div class="form-group">
+                <label asp-for="Cohort.Name" class="control-label"></label>
+                <input asp-for="Cohort.Name" class="form-control" />
+                <span asp-validation-for="Cohort.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cohort.Description" class="control-label"></label>
+                <input asp-for="Cohort.Description" class="form-control" />
+                <span asp-validation-for="Cohort.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cohort.StartDate" class="control-label"></label>
+                <input asp-for="Cohort.StartDate" class="form-control" />
+                <span asp-validation-for="Cohort.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Cohort.IsRegistrationOpen" /> @Html.DisplayNameFor(model => model.Cohort.IsRegistrationOpen)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cohort.CreatedOn" class="control-label"></label>
+                <input asp-for="Cohort.CreatedOn" class="form-control" />
+                <span asp-validation-for="Cohort.CreatedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cohort.UpdatedOn" class="control-label"></label>
+                <input asp-for="Cohort.UpdatedOn" class="form-control" />
+                <span asp-validation-for="Cohort.UpdatedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cohort.CreatedBy" class="control-label"></label>
+                <select asp-for="Cohort.CreatedBy" class="form-control" asp-items="ViewBag.CreatedBy"></select>
+                <span asp-validation-for="Cohort.CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cohort.UpdatedBy" class="control-label"></label>
+                <select asp-for="Cohort.UpdatedBy" class="form-control" asp-items="ViewBag.UpdatedBy"></select>
+                <span asp-validation-for="Cohort.UpdatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

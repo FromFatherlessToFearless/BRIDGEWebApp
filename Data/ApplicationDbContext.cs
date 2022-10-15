@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BRIDGEWebApp.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BRIDGEWebApp.Data
@@ -9,5 +10,9 @@ namespace BRIDGEWebApp.Data
             : base(options)
         {
         }
+
+        public DbSet<Participant> Participants { get; set; }
+
+        public DbSet<Cohort> Cohorts { get; set; }
     }
 }

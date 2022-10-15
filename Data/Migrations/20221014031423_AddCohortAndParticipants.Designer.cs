@@ -4,6 +4,7 @@ using BRIDGEWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BRIDGEWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221014031423_AddCohortAndParticipants")]
+    partial class AddCohortAndParticipants
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace BRIDGEWebApp.Data.Migrations
 
                     b.HasIndex("UpdatedBy");
 
-                    b.ToTable("Cohorts");
+                    b.ToTable("Cohort");
                 });
 
             modelBuilder.Entity("BRIDGEWebApp.Data.Models.Participant", b =>

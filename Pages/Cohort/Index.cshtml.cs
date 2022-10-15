@@ -1,12 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using BRIDGEWebApp.Data;
+using BRIDGEWebApp.Data.Models;
 
 namespace BRIDGEWebApp.Pages.Cohort
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
+        private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
+
+        public IndexModel(BRIDGEWebApp.Data.ApplicationDbContext context)
         {
+            _context = context;
+        }
+
+        public IList<Data.Models.Cohort> Cohort { get;set; } = default!;
+
+        public async Task OnGetAsync()
+        {
+            if (_context.Cohorts != null)
+            {
+                Cohort = await _context.Cohorts
+                .Include(c => c.CreatedByIdentityUser)
+                .Include(c => c.UpdatedByIdentityUser).ToListAsync();
+            }
         }
     }
 }
