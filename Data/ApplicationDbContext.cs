@@ -14,5 +14,13 @@ namespace BRIDGEWebApp.Data
         public DbSet<Participant> Participants { get; set; }
 
         public DbSet<Cohort> Cohorts { get; set; }
+
+        public DbSet<Question> Questions { get; set; }
+
+        public DbSet<QuestionOption> QuestionOptions { get; set; }  
+
+        public DbSet<Survey> Surveys { get; set; }
+
+        public DbSet<SurveySection> SurveySections { get; set; }
     }
 }
