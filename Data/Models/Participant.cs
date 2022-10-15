@@ -15,6 +15,14 @@ namespace BRIDGEWebApp.Data.Models
         [StringLength(100)]
         public string LastName { get; set; }
 
+        [EmailAddress]
+        [StringLength(100)]
+        public string? Email { get; set; }
+
+        [Phone]
+        [StringLength(50)]
+        public string? PhoneNumber { get; set; }
+
         public string PINHash { get; set; }
 
         public int CohortId { get; set; }
@@ -24,17 +32,7 @@ namespace BRIDGEWebApp.Data.Models
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }
-        
-        public string CreatedBy { get; set; }
-
-        [ForeignKey("CreatedBy")]
-        public IdentityUser CreatedByIdentityUser { get; set; }
-
-        public string UpdatedBy { get; set; }
-
-        [ForeignKey("UpdatedBy")]
-        public IdentityUser UpdatedByIdentityUser { get; set; }
-
+       
         public Cohort Cohort { get; set; }
     }
 }
