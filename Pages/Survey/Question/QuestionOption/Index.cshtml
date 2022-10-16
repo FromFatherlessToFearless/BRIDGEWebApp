@@ -2,13 +2,13 @@
 @model BRIDGEWebApp.Pages.Survey.Question.QuestionOption.IndexModel
 
 @{
-    ViewData["Title"] = "Question Options";
+    ViewData["Title"] = "Answer Options";
 }
 
 <h1>@Model.QuestionOptionList.QuestionName</h1>
 
 <p>
-    <a type="button" class="btn btn-sm btn-success" asp-page="./Create" asp-route-surveyId="@Model.QuestionOptionList.SurveyId" asp-route-questionId="@Model.QuestionOptionList.QuestionId">Create Question Option</a>
+    <a type="button" class="btn btn-sm btn-success" asp-page="./Create" asp-route-surveyId="@Model.QuestionOptionList.SurveyId" asp-route-questionId="@Model.QuestionOptionList.QuestionId">Create Answer Option</a>
 </p>
 <table class="table">
     <thead class="thead-light">
