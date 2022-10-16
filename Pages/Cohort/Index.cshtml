@@ -2,16 +2,16 @@
 @model BRIDGEWebApp.Pages.Cohort.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cohorts";
 }
 
-<h1>Index</h1>
+<h1>Cohorts</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a type="button" class="btn btn-sm btn-success" asp-page="Create">Create Cohort</a>
 </p>
 <table class="table">
-    <thead>
+    <thead class="thead-light">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Cohorts[0].Name)
@@ -43,15 +43,15 @@
             <td>
                     @if (item.IsRegistrationOpen)
                     {
-                        <p>Yes</p>
+                        <span>Yes</span>
                     } else
                     {
-                        <p>No</p>
+                        <span>No</span>
                     }
                 </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">View</a>
+                <a type="button" class="btn btn-sm btn-primary" asp-page="./Details" asp-route-id="@item.Id">View</a>
+                <a type="button" class="btn btn-sm btn-success" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
             </td>
         </tr>
 }
