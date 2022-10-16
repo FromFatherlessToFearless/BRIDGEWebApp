@@ -18,17 +18,29 @@
 
 <div class="row">
     <div class="col-lg">
-
-        <button class="btn btn-primary" id="toggleRegistrationButton">
-            @if (Model.Cohort.IsRegistrationOpen)
-            {
-                <span>Close Registration</span>
-            }
-            else
-            {
-                <span>Open Registration</span>
-            }
+        <div id="toggleRegistrationOpen" style="@(Model.Cohort.IsRegistrationOpen ? "display:none;": "display:block;")">
+            <span>Registration is closed</span>
+            <button class="btn btn-primary toggleRegistrationButton">
+                Open Registration
+            </button>
+        </div>
+        <div id="toggleRegistrationClosed" style="@(Model.Cohort.IsRegistrationOpen ? "display:block;" :"display:none;")">
+            <span>Registration is open</span>
+            <button class="btn btn-primary toggleRegistrationButton">
+                Close Registration
+            </button>
+        </div>
+        <div>
+            <button class="btn btn-primary">
+            Open QR Code
         </button>
+</div>
+        <div>
+            <button class="btn btn-primary">
+            Open Survery
+        </button>
+        </div>
+        
     </div>
 
 </div>
@@ -78,14 +90,15 @@
 @section Scripts{
     <script type="text/javascript">
         $(function() {
-            $("#toggleRegistrationButton").click(function() {
+            $(".toggleRegistrationButton").click(function() {
                 $.ajax({
                     type: "POST",
                     url: "/api/cohorts/" + @Model.Cohort.Id + "/toggle_registration",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function(response) {
-                        alert("Hello: " + response.Name + " .\nCurrent Date and Time: " + response.DateTime);
+                        $("#toggleRegistrationOpen").toggle();
+                        $("#toggleRegistrationClosed").toggle();
                     },
                     failure: function(response) {
                         alert(response.responseText);
