@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
+using BRIDGEWebApp.Data.ViewModels;
 
 namespace BRIDGEWebApp.Pages.Attendance
 {
@@ -21,23 +22,40 @@ namespace BRIDGEWebApp.Pages.Attendance
 
         public IActionResult OnGet()
         {
-        ViewData["Cohorts"] = new SelectList(_context.Cohorts, "Id", "Id");
+            ViewData["Cohorts"] = new SelectList(_context.Cohorts, "Id", "Id");
+            ViewData["Participants"] = new SelectList(_context.Participants, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public BRIDGEWebApp.Data.Models.Attendance Attendance { get; set; } = default!;
+        public AttendanceViewModel AttendanceViewModel { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Attendances == null || Attendance == null)
+          if (!ModelState.IsValid || _context.Attendances == null || AttendanceViewModel == null)
             {
                 return Page();
             }
 
-            _context.Attendances.Add(Attendance);
+            var attendance = new BRIDGEWebApp.Data.Models.Attendance
+            {
+                AttendanceDate = AttendanceViewModel.Date,
+                Cohort = AttendanceViewModel.SelectedCohort,
+                CreatedOn = DateTime.Today
+            };
+
+            var participantAttendance = new ParticipantAttendance
+            {
+                Attendance = attendance,
+                InAttendance = AttendanceViewModel.InAttendance,
+                AttendanceId = attendance.AttendanceId,
+                Participant = AttendanceViewModel.SelectedParticipant,
+                ParticipantId = AttendanceViewModel.SelectedParticipant.Id
+            };
+
+            _context.Attendances.Add(attendance);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
