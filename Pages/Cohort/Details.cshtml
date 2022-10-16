@@ -32,9 +32,9 @@
             </button>
         </div>
         <div>
-            <button class="btn btn-primary" href="@Url.PageLink("Code", values: new { cohortId = @Model.Cohort.Id })">
-            Open QR Code
-        </button>
+            
+            <a type="button" class="btn btn-primary" href="@Url.PageLink("Code", values: new { cohortId = @Model.Cohort.Id })">Open QR Code</a>
+       
 </div>
         <div>
             <button class="btn btn-primary">
