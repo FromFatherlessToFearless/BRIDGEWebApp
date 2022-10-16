@@ -19,27 +19,27 @@
 
 
 <div class="row">
-    <div class="col-lg">
-        <span id="toggleRegistrationOpen" style="@(Model.Cohort.IsRegistrationOpen ? "display:none;": "display:block;")">
-            <span>Registration is closed</span>
-            <button class="btn btn-sm btn-primary toggleRegistrationButton">
-                Open Registration
-            </button>
-        </span>
-        <span id="toggleRegistrationClosed" style="@(Model.Cohort.IsRegistrationOpen ? "display:block;" :"display:none;")">
-            <span>Registration is open</span>
-            <button class="btn btn-sm btn-primary toggleRegistrationButton">
-                Close Registration
-            </button>
-        </span>
-        <div>
-            <button class="btn btn-sm btn-primary">
-                Open QR Code
-            </button>
-            <button class="btn btn-sm btn-primary">
-                Open Survey
-            </button>
-        </div>
+    <div class="col-4" id="toggleRegistrationOpen" style="@(Model.Cohort.IsRegistrationOpen ? "display:none;": "display:block;")">
+        <span>Registration is closed</span>
+        <button class="btn btn-sm btn-primary toggleRegistrationButton">
+            Open Registration
+        </button>
+    </div>
+    <div class="col-4" id="toggleRegistrationClosed" style="@(Model.Cohort.IsRegistrationOpen ? "display:block;" :"display:none;")">
+        <span>Registration is open</span>
+        <button class="btn btn-sm btn-primary toggleRegistrationButton">
+            Close Registration
+        </button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-sm btn-primary">
+            Open QR Code
+        </button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-sm btn-primary">
+            Open Survey
+        </button>
     </div>
 </div>
 
@@ -75,9 +75,7 @@
                         @Html.DisplayFor(modelItem => item.IsActive)
                     </td>
                     <td>
-                        <a type="button" class="btn btn-sm btn-success" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
                         <a type="button" class="btn btn-sm btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a>
-
                     </td>
                 </tr>
             }
