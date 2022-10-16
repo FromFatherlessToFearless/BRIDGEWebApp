@@ -47,5 +47,7 @@ namespace BRIDGEWebApp.Data.Models
 
         [Display(Name = "Survey Section")]
         public SurveySection SurveySection {get;set;}
+
+        public List<QuestionOption> QuestionOptions { get; set; }
     }
 }
