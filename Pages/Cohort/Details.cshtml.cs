@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
 using System.Security.Claims;
+using BRIDGEWebApp.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BRIDGEWebApp.Pages.Cohort
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class DetailsModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
@@ -20,7 +23,7 @@ namespace BRIDGEWebApp.Pages.Cohort
             _context = context;
         }
 
-        public Data.Models.Cohort Cohort { get; set; }
+        public CohortParticipantListModel Cohort { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -34,9 +37,18 @@ namespace BRIDGEWebApp.Pages.Cohort
             {
                 return NotFound();
             }
-            else 
+            else
             {
-                Cohort = cohort;
+
+                Cohort = _context.Cohorts.Include(c => c.Participants).Where(c => c.Id == id).Select(x => new CohortParticipantListModel()
+                {
+                    Id = x.Id,
+                    Participants = x.Participants,
+                    Description = x.Description,
+                    IsRegistrationOpen = x.IsRegistrationOpen,
+                    Name = x.Name,
+                    StartDate = x.StartDate
+                }).First();
             }
             return Page();
         }
@@ -53,19 +65,15 @@ namespace BRIDGEWebApp.Pages.Cohort
             {
                 return NotFound();
             }
-            else
-            {
-                Cohort = cohort;
-            }
 
             // Toggle the Registration
-            Cohort.IsRegistrationOpen = !Cohort.IsRegistrationOpen;
+            cohort.IsRegistrationOpen = !cohort.IsRegistrationOpen;
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Cohort.UpdatedBy = userId;
-            Cohort.UpdatedOn = DateTime.Now;
+            cohort.UpdatedBy = userId;
+            cohort.UpdatedOn = DateTime.Now;
 
-            _context.Attach(Cohort).State = EntityState.Modified;
+            _context.Attach(cohort).State = EntityState.Modified;
 
             try
             {
@@ -83,9 +91,9 @@ namespace BRIDGEWebApp.Pages.Cohort
                 }
             }
 
-            if (Cohort.IsRegistrationOpen)
+            if (cohort.IsRegistrationOpen)
             {
-                return RedirectToPage("Code", new { cohortId = Cohort.Id });
+                return RedirectToPage("Code", new { cohortId = cohort.Id });
             }
 
             return Page();

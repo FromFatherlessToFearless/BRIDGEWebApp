@@ -21,12 +21,97 @@
 
 <div class="row">
     <div class="col-lg">
-        <form asp-page-handler="toggleregistration" method="post">
-            <button class="btn btn-primary">@if (Model.Cohort.IsRegistrationOpen) {
-                    <span>Close Registration</span> } else { <span>Open Registration</span> }
+        <div id="toggleRegistrationOpen" style="@(Model.Cohort.IsRegistrationOpen ? "display:none;": "display:block;")">
+            <span>Registration is closed</span>
+            <button class="btn btn-primary toggleRegistrationButton">
+                Open Registration
             </button>
-        </form>
-    </div>
-    
+        </div>
+        <div id="toggleRegistrationClosed" style="@(Model.Cohort.IsRegistrationOpen ? "display:block;" :"display:none;")">
+            <span>Registration is open</span>
+            <button class="btn btn-primary toggleRegistrationButton">
+                Close Registration
+            </button>
+        </div>
+        <div>
+            <button class="btn btn-primary">
+            Open QR Code
+        </button>
 </div>
+        <div>
+            <button class="btn btn-primary">
+            Open Survery
+        </button>
+        </div>
+        
+    </div>
+
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cohort.Participants[0].FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cohort.Participants[0].LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cohort.Participants[0].IsActive)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cohort.Participants)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function() {
+            $(".toggleRegistrationButton").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/cohorts/" + @Model.Cohort.Id + "/toggle_registration",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(response) {
+                        $("#toggleRegistrationOpen").toggle();
+                        $("#toggleRegistrationClosed").toggle();
+                    },
+                    failure: function(response) {
+                        alert(response.responseText);
+                    },
+                    error: function(response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}
 
