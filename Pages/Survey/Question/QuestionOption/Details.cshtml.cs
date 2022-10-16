@@ -9,7 +9,7 @@ using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BRIDGEWebApp.Pages.SurveySection
+namespace BRIDGEWebApp.Pages.Survey.Question.QuestionOption
 {
     [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class DetailsModel : PageModel
@@ -21,23 +21,24 @@ namespace BRIDGEWebApp.Pages.SurveySection
             _context = context;
         }
 
-      public Data.Models.SurveySection SurveySection { get; set; }
+      public Data.Models.QuestionOption QuestionOption { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int surveyId, int questionId, int? id)
         {
-            if (id == null || _context.SurveySections == null)
+            if (id == null || _context.QuestionOptions == null)
             {
                 return NotFound();
             }
-
-            var surveysection = await _context.SurveySections.FirstOrDefaultAsync(m => m.Id == id);
-            if (surveysection == null)
+            ViewData["SurveyId"] = surveyId;
+            ViewData["QuestionId"] = questionId;
+            var questionoption = await _context.QuestionOptions.FirstOrDefaultAsync(m => m.Id == id);
+            if (questionoption == null)
             {
                 return NotFound();
             }
             else 
             {
-                SurveySection = surveysection;
+                QuestionOption = questionoption;
             }
             return Page();
         }

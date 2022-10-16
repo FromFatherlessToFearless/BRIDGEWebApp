@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
 using BRIDGEWebApp.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BRIDGEWebApp.Pages.Survey
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class IndexModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
@@ -19,7 +21,6 @@ namespace BRIDGEWebApp.Pages.Survey
         {
             _context = context;
         }
-        public IList<CohortViewModel> Cohorts { get; set; } = default!;
         public IList<SurveyViewModel> SurveyViewModels { get;set; } = default!;
  
         public async Task OnGetAsync()

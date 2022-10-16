@@ -11,7 +11,7 @@ namespace BRIDGEWebApp.Data.Models
 
         [StringLength(1000)]
         public string Text { get; set; }
-
+        [Range(1, int.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int Order { get; set; }
 
         public bool IsMandatory { get; set; }

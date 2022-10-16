@@ -1,0 +1,66 @@
+﻿@page "/survey/{surveyId}/question/Index"
+@model BRIDGEWebApp.Pages.Survey.Question.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Survey: @Html.DisplayFor(model => model.QuestionList.SurveyName)</h1>
+<p>
+    <a asp-page="./Create" asp-route-surveyId="@Model.QuestionList.SurveyId">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionList.QuestionViewModels[0].Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionList.QuestionViewModels[0].QuestionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionList.QuestionViewModels[0].Order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionList.QuestionViewModels[0].IsMandatory)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionList.QuestionViewModels[0].IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionList.QuestionViewModels[0].SurveySectionName)
+            </th>          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.QuestionList.QuestionViewModels)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMandatory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveySectionName)
+            </td>        
+            <td>
+                <a asp-page="./Edit" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./QuestionOption/Index" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-questionId="@item.Id">Question Options</a>
+             </td>
+        </tr>
+}
+    </tbody>
+</table>

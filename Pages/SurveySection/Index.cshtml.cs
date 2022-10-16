@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
 using BRIDGEWebApp.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BRIDGEWebApp.Pages.SurveySection
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class IndexModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
