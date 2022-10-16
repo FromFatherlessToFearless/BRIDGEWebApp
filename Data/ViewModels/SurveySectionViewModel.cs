@@ -16,6 +16,7 @@ namespace BRIDGEWebApp.Data.ViewModels
         [Range(1, int.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int Order { get; set; }
 
+        [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
 
         public DateTime CreatedOn { get; set; }

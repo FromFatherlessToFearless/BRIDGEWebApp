@@ -2,13 +2,16 @@
 @model BRIDGEWebApp.Pages.Survey.Question.QuestionOption.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Question Option Details";
 }
 
-<h1>Details</h1>
+<h1>Question Option Details</h1>
+<div>
+    <a type="button" class="btn btn-sm btn-success" asp-page="./Edit" asp-route-surveyId="@ViewData["SurveyId"]" asp-route-questionId="@ViewData["QuestionId"]" asp-route-id="@Model.QuestionOption.Id">Edit</a> |
+    <a type="button" class="btn btn-sm btn-primary" asp-page="./Index" asp-route-surveyId="@ViewData["SurveyId"]" asp-route-questionId="@ViewData["QuestionId"]">Back to List</a>
+</div>
 
 <div>
-    <h4>QuestionOption</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -42,8 +45,4 @@
             @Html.DisplayFor(model => model.QuestionOption.Question.Id)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-surveyId="@ViewData["SurveyId"]" asp-route-questionId="@ViewData["QuestionId"]" asp-route-id="@Model.QuestionOption.Id">Edit</a> |
-    <a asp-page="./Index" asp-route-surveyId="@ViewData["SurveyId"]" asp-route-questionId="@ViewData["QuestionId"]">Back to List</a>
 </div>

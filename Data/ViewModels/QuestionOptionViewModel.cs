@@ -12,6 +12,7 @@ namespace BRIDGEWebApp.Data.ViewModels
         [Range(1, int.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int Order { get; set; }
 
+        [Display(Name = "Is Other")]
         public bool IsOther { get; set; }
 
         public int QuestionId { get; set; }

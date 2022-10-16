@@ -2,11 +2,10 @@
 @model BRIDGEWebApp.Pages.Survey.Question.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Question";
 }
 
-<h1>Create</h1>
-<h4>Question</h4>
+<h1>New Question</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -38,7 +37,7 @@
                 <select asp-for="Question.SurveySectionId" class="form-control" asp-items="(IEnumerable<SelectListItem>)@ViewData["SurveySectionId"]"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-sm btn-success" />
             </div>
         </form>
     </div>
