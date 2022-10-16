@@ -35,7 +35,7 @@ namespace BRIDGEWebApp.Pages.Survey.Question
             ViewData["SurveySectionId"] = new SelectList(surveySection, "Id", "Name");
             ViewData["SurveyId"] = surveyId;
             ViewData["SurveyName"] = survey.Name;
-            var statuses = from QuestionTypeEnum.QuestionTypesEnum s in Enum.GetValues(typeof(QuestionTypeEnum.QuestionTypesEnum))
+            var statuses = from QuestionType.QuestionTypes s in Enum.GetValues(typeof(QuestionType.QuestionTypes))
                            select new { ID = s, Name = s.ToString() };
             ViewData["QuestionTypeEnum"] = new SelectList(statuses, "ID", "Name");
             if (id == null || _context.Questions == null)

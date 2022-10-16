@@ -31,4 +31,13 @@
             </div>
         </div>
     </div>
+
+    <div class="col-sm-6">
+        <div class="card  text-center bg-success text-white" >
+            <div class="card-body">
+                <h4 class="card-title">Survey Open</h4>
+                <a href="@Url.PageLink("./Survey/Index", values:new { cohortId = Model.Cohort.Id})" class="btn btn-success" stretched-link>Take Survey</a>
+            </div>
+        </div>
+    </div>
 </div>

@@ -35,5 +35,7 @@ namespace BRIDGEWebApp.Data.Models
 
         [ForeignKey("UpdatedBy")]
         public IdentityUser UpdatedByIdentityUser { get; set; }
+
+        public List<Question> Questions { get; set; } 
     }
 }
