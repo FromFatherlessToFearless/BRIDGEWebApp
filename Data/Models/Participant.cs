@@ -10,9 +10,11 @@ namespace BRIDGEWebApp.Data.Models
         public int Id { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [EmailAddress]
@@ -27,6 +29,7 @@ namespace BRIDGEWebApp.Data.Models
 
         public int CohortId { get; set; }
 
+        [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
 
         public DateTime CreatedOn { get; set; }

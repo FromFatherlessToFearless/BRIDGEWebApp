@@ -2,14 +2,21 @@
 @model BRIDGEWebApp.Pages.Cohort.DetailsModel
 
 @{
-    ViewData["Title"] = "Cohort - " + Model.Cohort.Id;
+    ViewData["Title"] = "Cohort - " + Model.Cohort.Name;
 }
 
-<h1>Cohort @Model.Cohort.Id</h1>
+<h1>Cohort @Model.Cohort.Name</h1>
 <div>
+<<<<<<< HEAD
     <a asp-page="./Edit" asp-route-id="@Model.Cohort?.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
     <a asp-page="./Attendance/TakeAttendance" asp-route-cohortId="@Model.Cohort?.Id">Take Attendance</a>
+=======
+    <a type="button" class="btn btn-sm btn-success" asp-page="./Edit" asp-route-id="@Model.Cohort?.Id">Edit</a>
+    <a type="button" class="btn btn-sm btn-primary" asp-page="./Attendance/TakeAttendance" asp-route-cohortId="@Model.Cohort?.Id">Take Attendance</a>
+    <a type="button" class="btn btn-sm btn-primary" asp-page="./Participant/Create">Add Participant</a>
+    <a type="button" class="btn btn-sm btn-primary" asp-page="./Participant/Index">Participants</a>
+>>>>>>> master
 </div>
 <hr />
 <h2>@Model.Cohort?.Name</h2>
@@ -18,6 +25,7 @@
 
 
 <div class="row">
+<<<<<<< HEAD
     <div class="col-lg">
         <div id="toggleRegistrationOpen" style="@(Model.Cohort.IsRegistrationOpen ? "display:none;": "display:block;")">
             <span>Registration is closed</span>
@@ -42,8 +50,30 @@
         </button>
         </div>
         
+=======
+    <div class="col-4" id="toggleRegistrationOpen" style="@(Model.Cohort.IsRegistrationOpen ? "display:none;": "display:block;")">
+        <span>Registration is closed</span>
+        <button class="btn btn-sm btn-primary toggleRegistrationButton">
+            Open Registration
+        </button>
     </div>
-
+    <div class="col-4" id="toggleRegistrationClosed" style="@(Model.Cohort.IsRegistrationOpen ? "display:block;" :"display:none;")">
+        <span>Registration is open</span>
+        <button class="btn btn-sm btn-primary toggleRegistrationButton">
+            Close Registration
+        </button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-sm btn-primary">
+            Open QR Code
+        </button>
+>>>>>>> master
+    </div>
+    <div class="col-2">
+        <button class="btn btn-sm btn-primary">
+            Open Survey
+        </button>
+    </div>
 </div>
 
 <div>
@@ -78,14 +108,13 @@
                         @Html.DisplayFor(modelItem => item.IsActive)
                     </td>
                     <td>
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
-
+                        <a type="button" class="btn btn-sm btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts{

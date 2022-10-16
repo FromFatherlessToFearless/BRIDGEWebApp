@@ -46,6 +46,7 @@ namespace BRIDGEWebApp.Pages.Survey.Question
                     SurveyName = s.Survey.Name,
                     QuestionType = s.QuestionType,
                     Order = s.Order,
+                    IsMandatory = s.IsMandatory,
                     SurveySectionId = s.SurveySectionId,
                     SurveySectionName = s.SurveySection.Name
                 }).OrderBy(s => s.SurveySectionName).ThenBy(s => s.Order)
