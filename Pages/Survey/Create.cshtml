@@ -2,25 +2,22 @@
 @model BRIDGEWebApp.Pages.Survey.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Survey";
 }
 
-<h1>Create</h1>
+<h1>New Survey</h1>
 
-<h4>Survey</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Survey.Name" class="control-label"></label>
-                <input asp-for="Survey.Name" class="form-control" />
+                <label for="name" asp-for="Survey.Name"></label>
+                <input id="name" asp-for="Survey.Name" class="form-control" />
                 <span asp-validation-for="Survey.Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+            <input type="submit" value="Create" class="btn btn-sm btn-success" />
         </form>
     </div>
 </div>

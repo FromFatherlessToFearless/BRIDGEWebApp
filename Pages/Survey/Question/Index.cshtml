@@ -2,15 +2,15 @@
 @model BRIDGEWebApp.Pages.Survey.Question.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Survey Questions";
 }
 
 <h1>Survey: @Html.DisplayFor(model => model.QuestionList.SurveyName)</h1>
 <p>
-    <a asp-page="./Create" asp-route-surveyId="@Model.QuestionList.SurveyId">Create New</a>
+    <a type="button" class="btn btn-sm btn-success" asp-page="./Create" asp-route-surveyId="@Model.QuestionList.SurveyId">Create Question</a>
 </p>
 <table class="table">
-    <thead>
+    <thead class="thead-light">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.QuestionList.QuestionViewModels[0].Text)
@@ -47,18 +47,30 @@
                 @Html.DisplayFor(modelItem => item.Order)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsMandatory)
+                @if(item.IsMandatory)
+                {
+                    <span>Yes</span>
+                } else
+                {
+                    <span>No</span>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
+               @if(item.IsActive)
+                {
+                    <span>Yes</span>
+                } else
+                {
+                    <span>No</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SurveySectionName)
             </td>        
             <td>
-                <a asp-page="./Edit" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./QuestionOption/Index" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-questionId="@item.Id">Question Options</a>
+                <a type="button" class="btn btn-sm btn-success" asp-page="./Edit" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-id="@item.Id">Edit</a> 
+                <a type="button" class="btn btn-sm btn-primary" asp-page="./Details" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-id="@item.Id">Details</a> 
+                <a type="button" class="btn btn-sm btn-primary" asp-page="./QuestionOption/Index" asp-route-surveyId="@Model.QuestionList.SurveyId" asp-route-questionId="@item.Id">Question Options</a>
              </td>
         </tr>
 }

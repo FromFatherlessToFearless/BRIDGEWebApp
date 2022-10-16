@@ -26,7 +26,7 @@ namespace BRIDGEWebApp.Pages.Cohort
         }
 
         [BindProperty]
-        public CohortViewModel Cohort { get; set; }
+        public CohortViewModel Cohort { get; set; } = new CohortViewModel();
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

@@ -2,16 +2,16 @@
 @model BRIDGEWebApp.Pages.Survey.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Surveys";
 }
 
-<h1>Index</h1>
+<h1>Surveys</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a type="button" class="btn btn-sm btn-success" asp-page="Create">Create Survey</a>
 </p>
 <table class="table">
-    <thead>
+    <thead class="thead-light">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.SurveyViewModels[0].Name)
@@ -22,6 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.SurveyViewModels[0].IsActive)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,12 +35,18 @@
                 @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
+                @if (item.IsActive)
+                {
+                    <span>Yes</span>
+                } else
+                {
+                    <span>No</span>
+                }
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page= "./Question/Index" asp-route-surveyId ="@item.Id">Questions</a>
+                <a type="button" class="btn btn-sm btn-primary" asp-page="./Details" asp-route-id="@item.Id">View</a>
+                <a type="button" class="btn btn-sm btn-success" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                <a type="button" class="btn btn-sm btn-primary" asp-page="./Question/Index" asp-route-surveyId="@item.Id">Questions</a>
             </td>
         </tr>
 }

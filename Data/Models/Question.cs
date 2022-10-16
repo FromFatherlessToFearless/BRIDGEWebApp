@@ -14,15 +14,19 @@ namespace BRIDGEWebApp.Data.Models
         [Range(1, int.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int Order { get; set; }
 
+        [Display(Name = "Is Mandatory")]
         public bool IsMandatory { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Question Type")]
         public string QuestionType { get; set; }
 
         public int SurveyId { get; set; }
 
+        [Display(Name = "Survey Section")]
         public int SurveySectionId { get; set; }
 
+        [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
 
         public DateTime CreatedOn { get; set; }
@@ -41,6 +45,7 @@ namespace BRIDGEWebApp.Data.Models
 
         public Survey Survey { get; set; }
 
+        [Display(Name = "Survey Section")]
         public SurveySection SurveySection {get;set;}
     }
 }
