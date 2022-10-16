@@ -1,7 +1,7 @@
-﻿@page "/cohort/{cohortId}/register"
+﻿@page "/cohort/{cohortId}/login"
 @model BRIDGEWebApp.Pages.ParticipantRegisterModel
 @{
-    ViewData["Title"] = "BRIDGE - Register Participant";
+    ViewBag["Title"] = "BRIDGE - Register Participant";
 }
 
 
@@ -10,7 +10,7 @@
 <h2>Cohort @Model.Cohort.Id: @Model.Cohort.Name</h2>
 <hr />
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">

@@ -1,7 +1,7 @@
 ﻿@page "/cohort/{cohortId}/landing"
 @model BRIDGEWebApp.Pages.Cohort.Participants.LandingModel
 @{
-    ViewData["Title"] = "BRIDGE - Register Participant";
+    ViewData["Title"] = "B.R.I.D.G.E - Landing";
 }
 
 
@@ -9,3 +9,26 @@
 
 <h2>Cohort @Model.Cohort.Id: @Model.Cohort.Name</h2>
 <hr />
+
+<div class="row">
+    @if (Model.Cohort.IsRegistrationOpen)
+    {
+        <div class="col-sm-6">
+            <div class="card text-center text-white bg-success bg-opacity-75" >
+                <div class="card-body">
+                    <h4 class="card-title">New Particpant?</h4>
+                    <a href="@Url.PageLink("Register", values:new { cohortId = Model.Cohort.Id})" class="btn btn-success bg-transparent border-0 " stretched-link>Register here</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="col-sm-6">
+        <div class="card  text-center bg-success text-white" >
+            <div class="card-body">
+                <h4 class="card-title">Returing Participants?</h4>
+                <a href="@Url.PageLink("Login", values:new { cohortId = Model.Cohort.Id})" class="btn btn-success" stretched-link>Login here</a>
+            </div>
+        </div>
+    </div>
+</div>

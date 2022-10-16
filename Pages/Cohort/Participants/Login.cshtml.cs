@@ -6,15 +6,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using BRIDGEWebApp.Data.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using BRIDGEWebApp.Utility;
 
 namespace BRIDGEWebApp.Pages
 {
-    public class ParticipantRegisterModel : PageModel
+    public class ParticipantLoginModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
 
-        public ParticipantRegisterModel(BRIDGEWebApp.Data.ApplicationDbContext context)
+        public ParticipantLoginModel(BRIDGEWebApp.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -22,14 +21,10 @@ namespace BRIDGEWebApp.Pages
         [BindProperty]
         public ParticipantRegisterViewModel Participant { get; set; }
 
-        public bool IsAuthenticated { get; set; }
-
         public Data.Models.Cohort Cohort { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int cohortId)
         {
-            var auth = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            
 
             if (cohortId == null || _context.Cohorts == null)
             {
@@ -50,25 +45,9 @@ namespace BRIDGEWebApp.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int cohortId)
+        public async Task<IActionResult> OnPostAsync()
         {
             //ReturnUrl = returnUrl;
-
-
-            if (cohortId == null || _context.Cohorts == null)
-            {
-                return NotFound();
-            }
-
-            var cohort = await _context.Cohorts.FirstOrDefaultAsync(m => m.Id == cohortId);
-            if (cohort == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Cohort = cohort;
-            }
 
             if (ModelState.IsValid)
             {
@@ -78,27 +57,18 @@ namespace BRIDGEWebApp.Pages
                 // For demonstration purposes, the sample validates the user
                 // on the email address maria.rodriguez@contoso.com with
                 // any password that passes model validation.
-                var participant = new Participant()
-                {
-                    FirstName = Participant.FirstName,
-                    LastName = Participant.LastName,
-                    CohortId = cohortId,
-                    CreatedOn = DateTime.Now,
-                    UpdatedOn = DateTime.Now,
-                    Email = Participant.Email,
-                    IsActive = true,
-                    PhoneNumber = Participant.PhoneNumber,
-                    PINHash = HashProvider.ComputeSha256Hash(Participant.PIN)
-                            
-                };
 
-                _context.Participants.Add(participant);
-                await _context.SaveChangesAsync();
+                // var user =
+
+                if (false)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
+                }
 
                 var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, $"{Participant.FirstName} {Participant.LastName}"),
-                        new Claim("CohortId", Cohort.Id.ToString())
+                        new Claim(ClaimTypes.Name, Participant.FirstName),
                     };
 
                 var claimsIdentity = new ClaimsIdentity(
@@ -133,7 +103,10 @@ namespace BRIDGEWebApp.Pages
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                return RedirectToPage("Landing", routeValues: new { cohortId=  Cohort.Id });
+                //_logger.LogInformation("User {Email} logged in at {Time}.",
+                //    user.Email, DateTime.UtcNow);
+
+                return LocalRedirect(Url.Page("Survey"));
             }
 
             // Something failed. Redisplay the form.
