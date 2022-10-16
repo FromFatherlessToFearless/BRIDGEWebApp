@@ -4,6 +4,7 @@
     {
         public int SurveyId { get; set; }
         public int QuestionId { get; set; }
+        public string QuestionName { get; set; }
         public IList<QuestionOptionViewModel> QuestionOptionViewModels { get; set; }
 
         public QuestionOptionListViewModel()

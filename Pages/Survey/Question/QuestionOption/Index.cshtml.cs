@@ -29,8 +29,9 @@ namespace BRIDGEWebApp.Pages.Survey.Question.QuestionOption
         {
             if (_context.QuestionOptions != null)
             {
-                var question = _context.Questions.FirstOrDefault(m => m.Id == questionId);
+                var question = _context.Questions.FirstOrDefault(m => m.Id == questionId);    
                 QuestionOptionList.QuestionOptionViewModels = await _context.QuestionOptions
+                .Where(s => s.QuestionId == questionId)
                 .Include(q => q.CreatedByIdentityUser)
                 .Include(q => q.Question)
                 .Include(q => q.UpdatedByIdentityUser).Select(s => new QuestionOptionViewModel
@@ -41,11 +42,14 @@ namespace BRIDGEWebApp.Pages.Survey.Question.QuestionOption
                     CreatedOn = s.CreatedOn,
                     UpdatedOn = s.UpdatedOn,
                     IsOther = s.IsOther,
-                    QuestionId = questionId,
+                    QuestionId = s.QuestionId,
                     Order = s.Order
-                }).OrderBy(s => s.Order)
+                })
+                
+                .OrderBy(s => s.Order)              
                 .ToListAsync();
                 QuestionOptionList.QuestionId = questionId;
+                QuestionOptionList.QuestionName = question.Text;
                 QuestionOptionList.SurveyId = surveyId;
             }
         }

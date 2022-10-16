@@ -10,9 +10,11 @@ namespace BRIDGEWebApp.Data.Models
         public int Id { get; set; }
 
         [StringLength(100)]
+        [Required]
         public string Name { get; set; }
 
         [StringLength(1000)]
+        [Required]
         public string Description { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int Order { get; set; }
