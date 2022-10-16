@@ -15,8 +15,10 @@ namespace BRIDGEWebApp.Data.Models
         [StringLength(1000)]
         public string Description { get; set; }
 
+        [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
+        [Display(Name = "Is Registration Open")]
         public bool IsRegistrationOpen { get; set; }
 
         public DateTime CreatedOn { get; set; }
