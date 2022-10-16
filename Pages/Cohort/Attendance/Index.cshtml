@@ -1,4 +1,4 @@
-@page
+@page "/cohort/{cohortId}/attendance/Index"
 @model BRIDGEWebApp.Pages.Attendance.IndexModel
 
 @{
@@ -48,8 +48,7 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.AttendanceId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.AttendanceId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.AttendanceId">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.AttendanceId">Details</a> 
             </td>
         </tr>
 }
