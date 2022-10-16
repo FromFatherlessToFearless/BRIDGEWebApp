@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BRIDGEWebApp.Pages.Cohort.Participants
 {
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class LandingModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
