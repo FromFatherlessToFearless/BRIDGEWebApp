@@ -1,57 +1,57 @@
 ﻿@page "/cohort/{cohortId}/register"
 @model BRIDGEWebApp.Pages.ParticipantRegisterModel
 @{
+    ViewData["Title"] = "BRIDGE - Register Participant";
 }
 
 
 <h1>Welcome to the B.R.I.D.G.E Program</h1>
 
-<h2>Cohort</h2>
+<h2>Cohort @Model.Cohort.Id: @Model.Cohort.Name</h2>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Participant!.FirstName" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Participant!.FirstName" class="form-label"></label>
                 <input asp-for="Participant!.FirstName" class="form-control" />
                 <span asp-validation-for="Participant.FirstName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Participant!.LastName" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Participant!.LastName" class="form-label"></label>
                 <input asp-for="Participant!.LastName" class="form-control" />
                 <span asp-validation-for="Participant.LastName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Participant!.Email" class="control-label"></label>
+            <div  class="mb-3">
+                <label asp-for="Participant!.Email" class="form-label"></label>
                 <input asp-for="Participant!.Email" class="form-control" />
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 <span asp-validation-for="Participant.Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Participant!.PhoneNumber" class="control-label"></label>
+            <div  class="mb-3">
+                <label asp-for="Participant!.PhoneNumber" class="form-label"></label>
                 <input asp-for="Participant!.PhoneNumber" class="form-control" />
+                <div id="emailHelp" class="form-text">We'll never share your phone number with anyone else.</div>
                 <span asp-validation-for="Participant.PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Participant!.PIN" class="control-label"></label>
+            <div  class="mb-3">
+                <label asp-for="Participant!.PIN" class="form-label"></label>
                 <input asp-for="Participant!.PIN" class="form-control" />
                 <span asp-validation-for="Participant.PIN" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Participant!.PINRepeat" class="control-label"></label>
+            <div  class="mb-3">
+                <label asp-for="Participant!.PINRepeat" class="form-label"></label>
                 <input asp-for="Participant!.PINRepeat" class="form-control" />
                 <span asp-validation-for="Participant.PINRepeat" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div  class="mb-3">
+                <input type="submit" value="Register" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
