@@ -1,7 +1,7 @@
 ﻿@page "/cohort/{cohortId}/login"
-@model BRIDGEWebApp.Pages.ParticipantRegisterModel
+@model BRIDGEWebApp.Pages.ParticipantLoginModel
 @{
-    ViewBag["Title"] = "BRIDGE - Register Participant";
+    ViewData["Title"] = "BRIDGE - Login Participant";
 }
 
 
@@ -24,29 +24,12 @@
                 <span asp-validation-for="Participant.LastName" class="text-danger"></span>
             </div>
             <div  class="mb-3">
-                <label asp-for="Participant!.Email" class="form-label"></label>
-                <input asp-for="Participant!.Email" class="form-control" />
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                <span asp-validation-for="Participant.Email" class="text-danger"></span>
-            </div>
-            <div  class="mb-3">
-                <label asp-for="Participant!.PhoneNumber" class="form-label"></label>
-                <input asp-for="Participant!.PhoneNumber" class="form-control" />
-                <div id="emailHelp" class="form-text">We'll never share your phone number with anyone else.</div>
-                <span asp-validation-for="Participant.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div  class="mb-3">
                 <label asp-for="Participant!.PIN" class="form-label"></label>
                 <input asp-for="Participant!.PIN" class="form-control" />
                 <span asp-validation-for="Participant.PIN" class="text-danger"></span>
             </div>
             <div  class="mb-3">
-                <label asp-for="Participant!.PINRepeat" class="form-label"></label>
-                <input asp-for="Participant!.PINRepeat" class="form-control" />
-                <span asp-validation-for="Participant.PINRepeat" class="text-danger"></span>
-            </div>
-            <div  class="mb-3">
-                <input type="submit" value="Register" class="btn btn-primary" />
+                <input type="submit" value="Login" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -56,5 +39,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-<
