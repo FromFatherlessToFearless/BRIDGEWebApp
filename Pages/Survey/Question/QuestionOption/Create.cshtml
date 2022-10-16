@@ -1,0 +1,44 @@
+﻿@page "/survey/{surveyId}/question/{questionId}/questionOption/create"
+@model BRIDGEWebApp.Pages.Survey.Question.QuestionOption.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>QuestionOption</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="QuestionOption.Text" class="control-label"></label>
+                <input asp-for="QuestionOption.Text" class="form-control" />
+                <span asp-validation-for="QuestionOption.Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionOption.Order" class="control-label"></label>
+                <input asp-for="QuestionOption.Order" class="form-control" />
+                <span asp-validation-for="QuestionOption.Order" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="QuestionOption.IsOther" /> @Html.DisplayNameFor(model => model.QuestionOption.IsOther)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index" asp-route-surveyId="@ViewData["SurveyId"]" asp-route-questionId="@ViewData["QuestionId"]">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,71 @@
+﻿@page "/survey/{surveyId}/question/edit"
+@model BRIDGEWebApp.Pages.Survey.Question.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Question.Id" />
+            <div class="form-group">
+                <label asp-for="Question.Text" class="control-label"></label>
+                <input asp-for="Question.Text" class="form-control" />
+                <span asp-validation-for="Question.Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Order" class="control-label"></label>
+                <input asp-for="Question.Order" class="form-control" />
+                <span asp-validation-for="Question.Order" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Question.IsMandatory" /> 
+                    @Html.DisplayNameFor(model => model.Question.IsMandatory)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.QuestionType" class="control-label"></label>
+                <select asp-for="Question.QuestionType" class="form-control" asp-items="(IEnumerable<SelectListItem>)@ViewData["QuestionTypeEnum"]"></select>
+                <span asp-validation-for="Question.QuestionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Survey.Name" class="control-label"></label>
+                <input asp-for="@ViewData["SurveyName"]" class="form-control" readonly="@(true)" />
+                <span asp-validation-for="Question.Survey.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.SurveySectionId" class="control-label"></label>
+                <select asp-for="Question.SurveySectionId" class="form-control" asp-items="(IEnumerable<SelectListItem>)@ViewData["SurveySectionId"]"></select>
+                <span asp-validation-for="Question.SurveySectionId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Question.IsActive" /> @Html.DisplayNameFor(model => model.Question.IsActive)
+                </label>
+            </div>
+            @Html.HiddenFor(model => model.Question.CreatedBy)
+            @Html.HiddenFor(model => model.Question.CreatedOn)
+            @Html.HiddenFor(model => model.Question.UpdatedBy)
+            @Html.HiddenFor(model => model.Question.UpdatedOn)
+            @Html.HiddenFor(model => model.Question.SurveyId)
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index" asp-route-surveyId="@ViewData["SurveyId"]">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

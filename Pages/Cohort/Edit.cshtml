@@ -14,6 +14,10 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Cohort.Id" />
+            <input type="hidden" asp-for="Cohort.CreatedBy" />
+            <input type="hidden" asp-for="Cohort.CreatedOn" />
+            <input type="hidden" asp-for="Cohort.UpdatedBy" />
+            <input type="hidden" asp-for="Cohort.UpdatedOn" />
             <div class="form-group">
                 <label asp-for="Cohort.Name" class="control-label"></label>
                 <input asp-for="Cohort.Name" class="form-control" />
@@ -34,6 +38,7 @@
                     <input class="form-check-input" asp-for="Cohort.IsRegistrationOpen" /> @Html.DisplayNameFor(model => model.Cohort.IsRegistrationOpen)
                 </label>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

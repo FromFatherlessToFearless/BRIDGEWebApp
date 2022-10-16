@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace BRIDGEWebApp.Pages.Cohort
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class EditModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
@@ -43,7 +46,9 @@ namespace BRIDGEWebApp.Pages.Cohort
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Cohort.UpdatedBy = userId;
+            Cohort.UpdatedOn = DateTime.Now;
             if (!ModelState.IsValid)
             {
                 return Page();

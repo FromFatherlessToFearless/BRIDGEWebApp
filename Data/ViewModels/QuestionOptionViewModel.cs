@@ -1,21 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BRIDGEWebApp.Data.ViewModels
 {
-    public class SurveySectionViewModel
+    public class QuestionOptionViewModel
     {
+        [Key]
         public int Id { get; set; }
 
         [StringLength(100)]
-        public string Name { get; set; }
-
-        [StringLength(1000)]
-        public string Description { get; set; }
+        public string Text { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int Order { get; set; }
 
+        public bool IsOther { get; set; }
+
+        public int QuestionId { get; set; }
+  
         public bool IsActive { get; set; }
 
         public DateTime CreatedOn { get; set; }
@@ -23,7 +23,5 @@ namespace BRIDGEWebApp.Data.ViewModels
         public DateTime UpdatedOn { get; set; }
 
         public string CreatedBy { get; set; }
-        public string UpdatedBy { get; set; }
-
     }
 }

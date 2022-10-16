@@ -4,21 +4,67 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
+using BRIDGEWebApp.Data.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using BRIDGEWebApp.Utility;
 
 namespace BRIDGEWebApp.Pages
 {
     public class ParticipantLoginModel : PageModel
     {
-        [BindProperty]
-        public Participant? Participant { get; set; }
+        private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;
 
-        public void OnGet(int cohortId, int participantId)
+        public ParticipantLoginModel(BRIDGEWebApp.Data.ApplicationDbContext context)
         {
+            _context = context;
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        [BindProperty]
+        public ParticipantLoginViewModel Participant { get; set; }
+
+        public Data.Models.Cohort Cohort { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int cohortId)
+        {
+
+            if (cohortId == null || _context.Cohorts == null)
+            {
+                return NotFound();
+            }
+
+            var cohort = await _context.Cohorts.Include(c => c.Participants).FirstOrDefaultAsync(m => m.Id == cohortId);
+            if (cohort == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                Cohort = cohort;
+            }
+
+
+            // TODO: Redirect them if registration is closed
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int cohortId)
         {
             //ReturnUrl = returnUrl;
+            if (cohortId == null || _context.Cohorts == null)
+            {
+                return NotFound();
+            }
+
+            var cohort = await _context.Cohorts.Include(c => c.Participants).FirstOrDefaultAsync(m => m.Id == cohortId);
+            if (cohort == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                Cohort = cohort;
+            }
 
             if (ModelState.IsValid)
             {
@@ -29,9 +75,18 @@ namespace BRIDGEWebApp.Pages
                 // on the email address maria.rodriguez@contoso.com with
                 // any password that passes model validation.
 
-                // var user =
+                var user = _context.Participants.Where(x => x.FirstName.Trim().ToLower() == Participant.FirstName.Trim().ToLower()
+                                                         && x.LastName.Trim().ToLower() == Participant.LastName.Trim().ToLower()
+                                                         && x.CohortId == Cohort.Id).FirstOrDefault();
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
+                }
 
-                if (false)
+                var providedPasswordHash = HashProvider.ComputeSha256Hash(Participant.PIN.Trim());
+
+                if (providedPasswordHash.CompareTo(user.PINHash) != 0)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
@@ -39,7 +94,8 @@ namespace BRIDGEWebApp.Pages
 
                 var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, Participant.FirstName),
+                        new Claim(ClaimTypes.Name, $"{Participant.FirstName} {Participant.LastName}"),
+                        new Claim("CohortId", Cohort.Id.ToString())
                     };
 
                 var claimsIdentity = new ClaimsIdentity(
@@ -74,10 +130,7 @@ namespace BRIDGEWebApp.Pages
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                //_logger.LogInformation("User {Email} logged in at {Time}.",
-                //    user.Email, DateTime.UtcNow);
-
-                return LocalRedirect(Url.Page("Survey"));
+                return RedirectToPage("Landing", routeValues: new { cohortId = Cohort.Id });
             }
 
             // Something failed. Redisplay the form.

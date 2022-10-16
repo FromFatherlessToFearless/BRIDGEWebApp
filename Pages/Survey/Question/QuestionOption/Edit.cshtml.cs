@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
-namespace BRIDGEWebApp.Pages.SurveySection
+namespace BRIDGEWebApp.Pages.Survey.Question.QuestionOption
 {
     [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class EditModel : PageModel
@@ -24,41 +24,43 @@ namespace BRIDGEWebApp.Pages.SurveySection
         }
 
         [BindProperty]
-        public Data.Models.SurveySection SurveySection { get; set; } = default!;
+        public Data.Models.QuestionOption QuestionOption { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int surveyId, int questionId, int? id)
         {
-            if (id == null || _context.SurveySections == null)
+            if (id == null || _context.QuestionOptions == null)
             {
                 return NotFound();
             }
-
-            var surveysection =  await _context.SurveySections.FirstOrDefaultAsync(m => m.Id == id);
-            if (surveysection == null)
+            ViewData["SurveyId"] = surveyId;
+            ViewData["QuestionId"] = questionId;
+            var questionoption =  await _context.QuestionOptions.FirstOrDefaultAsync(m => m.Id == id);
+            if (questionoption == null)
             {
                 return NotFound();
             }
-            SurveySection = surveysection;
+            QuestionOption = questionoption;
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int surveyId, int questionId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            SurveySection.UpdatedBy = userId;
-            SurveySection.UpdatedOn = DateTime.Now;
-
-            ModelState.Remove("SurveySection.CreatedByIdentityUser");
-            ModelState.Remove("SurveySection.UpdatedByIdentityUser");
-
+            QuestionOption.UpdatedBy = userId;
+            QuestionOption.UpdatedOn = DateTime.Now;
+            ModelState.Remove("QuestionOption.CreatedByIdentityUser");
+            ModelState.Remove("QuestionOption.UpdatedByIdentityUser");
+            ModelState.Remove("QuestionOption.CreatedBy");
+            ModelState.Remove("QuestionOption.UpdatedBy");
+            ModelState.Remove("QuestionOption.Question");
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(SurveySection).State = EntityState.Modified;
+            _context.Attach(QuestionOption).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +68,7 @@ namespace BRIDGEWebApp.Pages.SurveySection
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SurveySectionExists(SurveySection.Id))
+                if (!QuestionOptionExists(QuestionOption.Id))
                 {
                     return NotFound();
                 }
@@ -76,12 +78,12 @@ namespace BRIDGEWebApp.Pages.SurveySection
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { surveyId = surveyId, questionId = QuestionOption.QuestionId  });
         }
 
-        private bool SurveySectionExists(int id)
+        private bool QuestionOptionExists(int id)
         {
-          return _context.SurveySections.Any(e => e.Id == id);
+          return _context.QuestionOptions.Any(e => e.Id == id);
         }
     }
 }

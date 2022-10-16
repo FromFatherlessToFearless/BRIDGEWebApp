@@ -1,0 +1,41 @@
+﻿@page "/cohort/{cohortId}/login"
+@model BRIDGEWebApp.Pages.ParticipantLoginModel
+@{
+    ViewData["Title"] = "BRIDGE - Login Participant";
+}
+
+
+<h1>Welcome to the B.R.I.D.G.E Program</h1>
+
+<h2>Cohort @Model.Cohort.Id: @Model.Cohort.Name</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Participant!.FirstName" class="form-label"></label>
+                <input asp-for="Participant!.FirstName" class="form-control" />
+                <span asp-validation-for="Participant.FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Participant!.LastName" class="form-label"></label>
+                <input asp-for="Participant!.LastName" class="form-control" />
+                <span asp-validation-for="Participant.LastName" class="text-danger"></span>
+            </div>
+            <div  class="mb-3">
+                <label asp-for="Participant!.PIN" class="form-label"></label>
+                <input asp-for="Participant!.PIN" class="form-control" />
+                <span asp-validation-for="Participant.PIN" class="text-danger"></span>
+            </div>
+            <div  class="mb-3">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
