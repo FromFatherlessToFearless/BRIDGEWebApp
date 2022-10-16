@@ -1,0 +1,61 @@
+﻿@page "/survey/{surveyId}/questions/details"
+@model BRIDGEWebApp.Pages.Survey.Question.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.Text)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.Text)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.Order)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.Order)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.IsMandatory)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.IsMandatory)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.QuestionType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.QuestionType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.IsActive)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.Survey)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.Survey.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.SurveySection)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.SurveySection.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-surveyId="@ViewData["SurveyId"]" asp-route-id="@Model.Question.Id">Edit</a> |
+    <a asp-page="./Index" asp-route-surveyId="@ViewData["SurveyId"]">Back to List</a>
+</div>

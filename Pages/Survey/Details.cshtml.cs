@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BRIDGEWebApp.Pages.Survey
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class DetailsModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;

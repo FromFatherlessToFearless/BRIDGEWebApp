@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using BRIDGEWebApp.Data;
 using BRIDGEWebApp.Data.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BRIDGEWebApp.Pages.Survey
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class EditModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;

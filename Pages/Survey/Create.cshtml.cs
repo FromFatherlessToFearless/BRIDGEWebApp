@@ -10,9 +10,11 @@ using BRIDGEWebApp.Data.Models;
 using BRIDGEWebApp.Data.ViewModels;
 using System.Security.Claims;
 using System.Drawing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BRIDGEWebApp.Pages.Survey
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class CreateModel : PageModel
     {
         private readonly BRIDGEWebApp.Data.ApplicationDbContext _context;

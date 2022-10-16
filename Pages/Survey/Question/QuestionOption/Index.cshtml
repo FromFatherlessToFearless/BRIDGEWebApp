@@ -1,0 +1,54 @@
+﻿@page "/survey/{surveyId}/question/{questionId}/questionOption/Index"
+@model BRIDGEWebApp.Pages.Survey.Question.QuestionOption.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="./Create" asp-route-surveyId="@Model.QuestionOptionList.SurveyId" asp-route-questionId="@Model.QuestionOptionList.QuestionId">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionOptionList.QuestionOptionViewModels[0].Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionOptionList.QuestionOptionViewModels[0].Order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionOptionList.QuestionOptionViewModels[0].IsOther)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionOptionList.QuestionOptionViewModels[0].IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.QuestionOptionList.QuestionOptionViewModels)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsOther)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-surveyId="@Model.QuestionOptionList.SurveyId" asp-route-questionId="@Model.QuestionOptionList.QuestionId" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-surveyId="@Model.QuestionOptionList.SurveyId" asp-route-questionId="@Model.QuestionOptionList.QuestionId" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
