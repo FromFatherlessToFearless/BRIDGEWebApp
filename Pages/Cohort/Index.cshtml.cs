@@ -29,6 +29,7 @@ namespace BRIDGEWebApp.Pages.Cohort
             if (_context.Cohorts != null)
             {
                 Cohorts = await _context.Cohorts
+                .Include(c => c.Participants)
                 .Include(c => c.CreatedByIdentityUser)
                 .Include(c => c.UpdatedByIdentityUser)
                 .Select(c => new CohortViewModel

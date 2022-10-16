@@ -11,6 +11,8 @@ namespace BRIDGEWebApp.Data.Models
 
         public int AttendanceId { get; set; }
 
+        public bool InAttendance { get; set; }
+
         public Participant Participant { get; set; }
 
         public Attendance Attendance { get; set; }

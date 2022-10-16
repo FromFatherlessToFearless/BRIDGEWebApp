@@ -9,6 +9,9 @@
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Cohort?.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Attendance/TakeAttendance" asp-route-cohortId="@Model.Cohort?.Id">Take Attendance</a>
+    <a asp-page="./Participant/Create">Add Participant</a>
+    <a asp-page="./Participant/Index">Participants</a>
 </div>
 <hr />
 <h2>@Model.Cohort?.Name</h2>

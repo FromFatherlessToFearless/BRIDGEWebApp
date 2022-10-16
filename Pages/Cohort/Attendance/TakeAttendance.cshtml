@@ -1,0 +1,75 @@
+@page "/Cohort/{cohortId}/attendance/create"
+@model BRIDGEWebApp.Pages.Attendance.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<p>Cohort: @Html.DisplayFor(model => model.ParticipantAttendanceViewModel.CohortName)</p>
+<p>Attendance: @Html.DisplayFor(model => model.ParticipantAttendanceViewModel.Name)</p>
+
+<h4>Participent Attendance</h4>
+<hr />
+<div class="row">
+    <div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table class="table col-md-12">
+                <thead>
+                    <tr class="col-md-12">
+                        <th class="col-md-8">
+                            @Html.DisplayNameFor(model => model.ParticipantAttendanceViewModel.ParticipantAttendance[0].FirstName)
+                        </th>
+                        <th class="col-md-8">
+                            @Html.DisplayNameFor(model => model.ParticipantAttendanceViewModel.ParticipantAttendance[0].LastName)
+                        </th>
+                        <th class="col-md-4">
+                            @Html.DisplayNameFor(model => model.ParticipantAttendanceViewModel.ParticipantAttendance[0].InAttendance)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.ParticipantAttendanceViewModel.ParticipantAttendance.Count(); i++)
+                    {
+                        <tr class="col-md-12">
+                            <td class="col-md-8">
+                                <input asp-for="ParticipantAttendanceViewModel.ParticipantAttendance[i].FirstName" class="form-control" readonly="@(true)" />
+                            </td>
+                            <td class="col-md-8">
+                                <input asp-for="ParticipantAttendanceViewModel.ParticipantAttendance[i].LastName" class="form-control" readonly="@(true)" />
+
+                            </td>
+                            <td class="col-md-4">
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="ParticipantAttendanceViewModel.ParticipantAttendance[i].InAttendance" />
+                                    </label>
+                                </div>
+                            </td>           
+                            <td>
+                                <input type="hidden" asp-for="ParticipantAttendanceViewModel.ParticipantAttendance[i].ParticipantId" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <input type="hidden" asp-for="@Model.ParticipantAttendanceViewModel.CohortId)" />
+            <input type="hidden" asp-for="@Model.ParticipantAttendanceViewModel.AttendanceId)" />
+            <input type="hidden" asp-for="@Model.ParticipantAttendanceViewModel.Name)" />
+            <input type="hidden" asp-for="@Model.ParticipantAttendanceViewModel.AttendanceDate)" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="../index">Back to Cohort</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

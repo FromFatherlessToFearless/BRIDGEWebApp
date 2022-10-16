@@ -1,0 +1,56 @@
+@page "/cohort/{cohortId}/attendance/Index"
+@model BRIDGEWebApp.Pages.Attendance.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Participant Name
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+               In Attendance
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Attendance[0].Cohort)
+            </th>
+            <th>
+                Active
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Attendance) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttendanceDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cohort.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AttendanceId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.AttendanceId">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

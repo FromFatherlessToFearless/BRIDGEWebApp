@@ -9,8 +9,6 @@ namespace BRIDGEWebApp.Data.Models
         [Key]
         public int AttendanceId { get; set; }
 
-        public bool InAttendance { get; set; }
-
         public DateTime AttendanceDate { get; set; }
 
         [StringLength(100)]

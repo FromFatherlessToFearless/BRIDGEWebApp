@@ -32,7 +32,7 @@ namespace BRIDGEWebApp.Pages.Cohort
                 return NotFound();
             }
 
-            var cohort = await _context.Cohorts.FirstOrDefaultAsync(m => m.Id == id);
+            var cohort = await _context.Cohorts.Include(c => c.Participants).FirstOrDefaultAsync(m => m.Id == id);
             if (cohort == null)
             {
                 return NotFound();
