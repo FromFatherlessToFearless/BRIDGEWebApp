@@ -6,15 +6,16 @@ namespace BRIDGEWebApp.Data.ViewModels.Survey
     public class ParticipantSurveyQuestionViewModel
     {
         public string QuestionText { get; set; }
+
         public int QuestionId { get; set; }
 
         public bool IsMandatory { get; set; }
 
         public int Order { get; set; }
 
-        public string QuestionType { get; set; }
+        public QuestionType QuestionType { get; set; }
 
-        public List<QuestionOption> QuestionOptions { get; set; }   
+        public List<AnswerOptionViewModel> AnswerOptions { get; set; }   
 
     }
 }

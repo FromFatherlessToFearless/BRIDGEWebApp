@@ -1,16 +1,61 @@
 ﻿@page "/cohort/{cohortId}/participant/survey"
+@using BRIDGEWebApp.Data.Enum
 @model BRIDGEWebApp.Pages.Cohort.Participants.Survey.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Participant - Survey";
 }
 
-<h1>Index</h1>
+<h1>@Model.Survey.CohortId: @Model.Survey.CohortName</h1>
+<h2>@Model.Survey.SurveyName</h2>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<form>
+    @foreach (var item in Model.Survey.ParticipantSurveySections.OrderBy(x => x.Order))
+    {
+        <h3>@item.SectionName</h3>
+        <h2>@item.SectionDescription</h2>
 
-@*@foreach (var item in Model.Answer) {
-       
-}*@
+
+        @foreach (var question in item.Questions.OrderBy(x => x.Order))
+        {
+            <div class="form-group">
+                <label for="exampleInputPassword1">@question.QuestionText</label>
+            
+            @switch (question.QuestionType)
+            {
+                case QuestionType.AgreeDisagree:
+                case QuestionType.Multiple:
+                case QuestionType.Single:
+                    foreach (var option in question.AnswerOptions)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="@(question.QuestionType != QuestionType.Single ?"checkbox": "radio")" />
+                            <label class="form-check-label" >
+                                @option.OptionText                                
+                            </label>
+                            @if (option.IsOther)
+                            {
+                                <input type="text"  class="form-control"/>
+                            }
+                            
+                        </div>
+                    }
+                    break;
+                case QuestionType.OpenShort:
+                    <input type="text" class="form-control"/>
+                    break;
+                case QuestionType.OpenLong:
+                    <textarea type="text"  class="form-control"></textarea>
+                    break;
+                default:
+                    break;
+
+
+            }
+            </div>
+        }
+
+
+    }
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

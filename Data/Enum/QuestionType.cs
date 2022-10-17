@@ -1,14 +1,12 @@
 ﻿namespace BRIDGEWebApp.Data.Enum
 {
-    public class QuestionType
+    public enum QuestionType
     {
-        public enum QuestionTypes
-        {
-            Multiple,
-            Single,
-            OpenShort,
-            OpenLong,
-            AgreeDisagree
-        }
+        Multiple,
+        Single,
+        OpenShort,
+        OpenLong,
+        AgreeDisagree
     }
+
 }
