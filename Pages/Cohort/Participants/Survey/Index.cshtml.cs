@@ -32,9 +32,7 @@ namespace BRIDGEWebApp.Pages.Cohort.Participants.Survey
             }
             else
             {
-                var list = _context.SurveySections.Include(sec => sec.Questions).ToList()
-                        // Only pick the survey sections that are used in the questions tied to this survey
-                        .Where(s => s.Questions.Where(q => q.SurveyId == 1).ToList().Count() > 0).ToList();
+                
                 // TODO: Changed this to be dynamic
                 Survey = (await _context.Surveys.Where(s => s.Id == 1).ToListAsync())
                     .Select(survey => new ParticipantSurveyViewModel()
@@ -52,34 +50,32 @@ namespace BRIDGEWebApp.Pages.Cohort.Participants.Survey
                             SectionDescription = section.Description,
                             SectionId = section.Id,
                             SectionName = section.Name,
-                            Questions =
+                            Questions = section.Questions.Select(q => new ParticipantSurveyQuestionViewModel()
+                                        {
+                                            IsMandatory = q.IsMandatory,
+                                            AnswerOptions = q.QuestionOptions
+                                            .ToList().Concat(q.QuestionType == QuestionType.AgreeDisagree.ToString() ?
+                                                                                        // Add records that don't exist in the database
+                                                                                        new List<string> { "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" }
+                                                                                        .Select((x, i) => new QuestionOption()
+                                                                                        {
+                                                                                            IsOther = false,
+                                                                                            Text = x,
+                                                                                            Order = i,
 
-                            section.Questions.Select(q => new ParticipantSurveyQuestionViewModel()
-                            {
-                                IsMandatory = q.IsMandatory,
-                                AnswerOptions = q.QuestionOptions
-                                .ToList().Concat(q.QuestionType == QuestionType.AgreeDisagree.ToString() ?
-                                                                            // Add records that don't exist in the database
-                                                                            new List<string> { "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" }
-                                                                            .Select((x, i) => new QuestionOption()
-                                                                            {
-                                                                                IsOther = false,
-                                                                                Text = x,
-                                                                                Order = i,
+                                                                                        }) : Enumerable.Empty<QuestionOption>())
+                                                            .Select(o => new AnswerOptionViewModel()
+                                                            {
+                                                                IsOther = o.IsOther,
+                                                                OptionText = o.Text,
+                                                                QuestionOptionId = o.Id
+                                                            }).ToList(),
+                                            QuestionId = q.Id,
+                                            QuestionText = q.Text,
+                                            QuestionType = (QuestionType)Enum.Parse(typeof(QuestionType), q.QuestionType),
+                                            Order = q.Order
 
-                                                                            }) : Enumerable.Empty<QuestionOption>())
-                                                .Select(o => new AnswerOptionViewModel()
-                                                {
-                                                    IsOther = o.IsOther,
-                                                    OptionText = o.Text,
-                                                    QuestionOptionId = o.Id
-                                                }).ToList(),
-                                QuestionId = q.Id,
-                                QuestionText = q.Text,
-                                QuestionType = (QuestionType)Enum.Parse(typeof(QuestionType), q.QuestionType),
-                                Order = q.Order
-
-                            }).ToList()
+                                        }).ToList()
 
                         }).ToList()
                     }).FirstOrDefault();
